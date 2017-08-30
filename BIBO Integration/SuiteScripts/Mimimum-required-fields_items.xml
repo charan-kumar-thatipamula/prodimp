@@ -1,0 +1,128 @@
+<soapenv:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <addList xmlns="urn:messages_2013_1.platform.webservices.netsuite.com">
+            <record xsi:type="ns1:InventoryItem" externalId="OWN721106" xmlns:ns1="urn:accounting_2013_1.lists.webservices.netsuite.com">
+                <ns1:purchaseDescription>Shape : Square
+Pattern / Design : 3</ns1:purchaseDescription>
+                <ns1:isTaxable>true</ns1:isTaxable>
+                <ns1:isDropShipItem>true</ns1:isDropShipItem>
+                <ns1:preferredLocation internalId="1"/>
+                <ns1:cost>1.0</ns1:cost>
+                <ns1:customForm internalId="155"/>
+                <ns1:itemId>OWN721106</ns1:itemId>
+                <ns1:upcCode/>
+                <ns1:displayName>Product test for Y by 100 Watt Network</ns1:displayName>
+                <ns1:vendorName>lumens Product publish</ns1:vendorName>
+                <ns1:parent internalId="4888717"/>
+                <ns1:isInactive>false</ns1:isInactive>
+                <ns1:pricingMatrix>
+                    <ns1:pricing>
+                        <ns1:currency internalId="1"/>
+                        <ns1:priceLevel type="priceLevel" internalId="1"/>
+                        <ns1:priceList>
+                            <ns1:price>
+                                <ns1:value>1.0</ns1:value>
+                            </ns1:price>
+                        </ns1:priceList>
+                    </ns1:pricing>
+                    <ns1:pricing>
+                        <ns1:currency internalId="1"/>
+                        <ns1:priceLevel type="priceLevel" internalId="8"/>
+                        <ns1:priceList>
+                            <ns1:price>
+                                <ns1:value>1.0</ns1:value>
+                            </ns1:price>
+                        </ns1:priceList>
+                    </ns1:pricing>
+                    <ns1:pricing>
+                        <ns1:currency internalId="1"/>
+                        <ns1:priceLevel type="priceLevel" internalId="9"/>
+                        <ns1:priceList>
+                            <ns1:price>
+                                <ns1:value>1.0</ns1:value>
+                            </ns1:price>
+                        </ns1:priceList>
+                    </ns1:pricing>
+                    <ns1:pricing>
+                        <ns1:currency internalId="1"/>
+                        <ns1:priceLevel type="priceLevel" internalId="20"/>
+                        <ns1:priceList>
+                            <ns1:price>
+                                <ns1:value>1.0</ns1:value>
+                            </ns1:price>
+                        </ns1:priceList>
+                    </ns1:pricing>
+                </ns1:pricingMatrix>
+                <ns1:vendor internalId="6913"/>
+                <ns1:customFieldList>
+                    <ns2:customField xsi:type="ns2:StringCustomFieldRef" internalId="custitembatch_id" xmlns:ns2="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns2:value>for Y product</ns2:value>
+                    </ns2:customField>
+                    <ns3:customField xsi:type="ns3:SelectCustomFieldRef" internalId="custitem_lum_brand_ref_id" xmlns:ns3="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns3:value typeId="356" internalId="902"/>
+                    </ns3:customField>
+                    <ns4:customField xsi:type="ns4:BooleanCustomFieldRef" internalId="custitemnon_returnable" xmlns:ns4="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns4:value>false</ns4:value>
+                    </ns4:customField>
+                    <ns5:customField xsi:type="ns5:SelectCustomFieldRef" internalId="custitem_lum_publishing_status" xmlns:ns5="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns5:value typeId="441" internalId="1"/>
+                    </ns5:customField>
+                    <ns6:customField xsi:type="ns6:SelectCustomFieldRef" internalId="custitem_product_subclass" xmlns:ns6="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns6:value typeId="220" internalId="243"/>
+                    </ns6:customField>
+                    <ns7:customField xsi:type="ns7:SelectCustomFieldRef" internalId="custitem_product_category" xmlns:ns7="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns7:value typeId="143" internalId="24"/>
+                    </ns7:customField>
+                    <ns8:customField xsi:type="ns8:SelectCustomFieldRef" internalId="custitem_product_class" xmlns:ns8="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns8:value typeId="142" internalId="200"/>
+                    </ns8:customField>
+                    <ns9:customField xsi:type="ns9:BooleanCustomFieldRef" internalId="custitem19" xmlns:ns9="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns9:value>false</ns9:value>
+                    </ns9:customField>
+                    <ns10:customField xsi:type="ns10:BooleanCustomFieldRef" internalId="custitem29" xmlns:ns10="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns10:value>true</ns10:value>
+                    </ns10:customField>
+                    <ns11:customField xsi:type="ns11:LongCustomFieldRef" internalId="custitem_lum_shipping_sla" xmlns:ns11="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns11:value>1</ns11:value>
+                    </ns11:customField>
+                    <ns12:customField xsi:type="ns12:BooleanCustomFieldRef" internalId="custitemships_freight" xmlns:ns12="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns12:value>false</ns12:value>
+                    </ns12:customField>
+                    <ns13:customField xsi:type="ns13:BooleanCustomFieldRef" internalId="custitem_quick_ship_item" xmlns:ns13="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns13:value>false</ns13:value>
+                    </ns13:customField>
+                    <ns14:customField xsi:type="ns14:SelectCustomFieldRef" internalId="custitem_shipping_stmt_type" xmlns:ns14="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns14:value typeId="692" internalId="1"/>
+                    </ns14:customField>
+                    <ns15:customField xsi:type="ns15:DoubleCustomFieldRef" internalId="custitem_ship_ht" xmlns:ns15="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns15:value>1.0</ns15:value>
+                    </ns15:customField>
+                    <ns16:customField xsi:type="ns16:DoubleCustomFieldRef" internalId="custitem_ship_depth" xmlns:ns16="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns16:value>1.0</ns16:value>
+                    </ns16:customField>
+                    <ns17:customField xsi:type="ns17:DoubleCustomFieldRef" internalId="custitem_lum_package_volume_val" xmlns:ns17="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns17:value>1.0</ns17:value>
+                    </ns17:customField>
+                    <ns18:customField xsi:type="ns18:DoubleCustomFieldRef" internalId="custitem_lum_package_weight_val" xmlns:ns18="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns18:value>1.0</ns18:value>
+                    </ns18:customField>
+                    <ns19:customField xsi:type="ns19:DoubleCustomFieldRef" internalId="custitem_ship_width" xmlns:ns19="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns19:value>1.0</ns19:value>
+                    </ns19:customField>
+                    <ns20:customField xsi:type="ns20:SelectCustomFieldRef" internalId="custitem_lum_package_weight_method" xmlns:ns20="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns20:value typeId="376" internalId="3"/>
+                    </ns20:customField>
+                    <ns21:customField xsi:type="ns21:SelectCustomFieldRef" internalId="custitem_lum_package_weight_unit" xmlns:ns21="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns21:value typeId="375" internalId="1"/>
+                    </ns21:customField>
+                    <ns22:customField xsi:type="ns22:SelectCustomFieldRef" internalId="custitem_lum_item_type" xmlns:ns22="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns22:value typeId="449" internalId="1"/>
+                    </ns22:customField>
+                    <ns23:customField xsi:type="ns23:SelectCustomFieldRef" internalId="custitem_bulb_type" xmlns:ns23="urn:core_2013_1.platform.webservices.netsuite.com">
+                        <ns23:value typeId="33" internalId="2"/>
+                    </ns23:customField>
+                </ns1:customFieldList>
+            </record>
+        </addList>
+    </soapenv:Body>
+</soapenv:Envelope>
