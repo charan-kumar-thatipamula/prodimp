@@ -50,21 +50,51 @@ NSUpdate.prototype.processRecord = function () {
   // nlapiLogExecution('DEBUG', 'value', j['envelope'])
   // nlapiLogExecution('DEBUG', 'x', x)
   // return
-  var record = jsonPath(this.getItemJson(), '$.' + 'Envelope.Body.addList.record') || [{}]
+  var record = jsonPath(this.getItemJson(), '$.' + 'Envelope.Body.addList.record') || ['']
   record = record[0]
+  if (!record || !record.length) {
+    var record = jsonPath(this.getItemJson(), '$.' + 'Envelope.Body.updateList.record') || ['']
+    record = record[0]
+  }
   if (!record) {
     nlapiLogExecution('DEBUG', 'record is empty', 'No records found to import. Returning.....')
     return
   }
-  var nlObj = getNLObj(record)
-  var nsObjUpdate = new NSObjUPdate()
-  nsObjUpdate.setNLRecord(nlObj)
-  return updateNSObject(nsObjUpdate, record)
+
+  var context = nlapiGetContext()
+  var savedIds = {}
+  for (var i = 0; i < record.length; i++) {
+    var remainingUsage = context.getRemainingUsage()
+    nlapiLogExecution('DEBUG', 'Remaining usage', 'Remaining usage points: ' + remainingUsage)
+    if (remainingUsage < 30) {
+      break
+    }
+    var cRecord = record[i]
+    // nlapiLogExecution('DEBUG', 'cRecord', JSON.stringify(cRecord))
+    try {
+      var nlObj = getNLObj(cRecord)
+      var nsObjUpdate = new NSObjUPdate()
+      nsObjUpdate.setNLRecord(nlObj)
+      var cId = updateNSObject(nsObjUpdate, cRecord)
+      // savedIds.push(cId)
+      nlapiLogExecution('DEBUG', 'SKU and Id', 'SKU: ' + cRecord.itemId.__text + ', Saved Id: ' + cId)    
+      savedIds[cRecord.itemId.__text] = cId
+    } catch(e) {
+      nlapiLogExecution('DEBUG', 'Exception saving the item: ' + cRecord.itemId.__text, e)
+      savedIds[cRecord.itemId.__text] = e
+    }
+  }
+  // var nlObj = getNLObj(record)
+  // var nsObjUpdate = new NSObjUPdate()
+  // nsObjUpdate.setNLRecord(nlObj)
+  // return updateNSObject(nsObjUpdate, record)
+  return savedIds
 }
 
 function getNLObj(record) {
-  var itemId = 'asdfasd' // record.itemId.__text
-  var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('nameinternal', null, 'is', itemId), null)
+  var itemId = record.itemId.__text
+  // var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('nameinternal', null, 'is', itemId), null)
+  var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('custitem_external_id', null, 'is', itemId), null)
   if (!s || !s.length) {
     return nlapiCreateRecord('inventoryitem')
   } else {

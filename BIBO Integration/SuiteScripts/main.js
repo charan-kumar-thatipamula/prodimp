@@ -31,20 +31,28 @@ function processRecordWrapper(soapStr) {
   // nlapiLogExecution('DEBUG', 'soapStr', soapStr)
   // nlapiLogExecution('DEBUG', 'typeof soapStr', typeof soapStr)
   // return JSON.stringify(soapStr)
-  var d1 = new Date()
-  var xmlUtil = new XMLUtilility()
-  xmlUtil.setSoapString(soapStr)
-  var itemJson = xmlUtil.getJsonFromSoapString()
-  var itemJsonStr = JSON.stringify(itemJson)
-  var i = 0
-  while (i < itemJsonStr.length) {
-    nlapiLogExecution('DEBUG', 'itemJsonStr', itemJsonStr.substring(i, i + 4000))
-    i = i + 4000
+  try {
+    var d1 = new Date().getTime()
+    var xmlUtil = new XMLUtilility()
+    xmlUtil.setSoapString(soapStr)
+    var itemJson = xmlUtil.getJsonFromSoapString()
+    var itemJsonStr = JSON.stringify(itemJson)
+    var i = 0
+    // while (i < itemJsonStr.length) {
+    //   nlapiLogExecution('DEBUG', 'itemJsonStr', itemJsonStr.substring(i, i + 4000))
+    //   i = i + 4000
+    // }
+    var d2 = new Date().getTime()
+    nlapiLogExecution('DEBUG', 'time for xml to string', (d2 - d1) / 1000)
+    var savedRecords = triggerProcessRecord(itemJsonStr)
+    nlapiLogExecution('DEBUG', 'savedRecords', JSON.stringify(savedRecords))
+    var d3 = new Date().getTime()
+    nlapiLogExecution('DEBUG', 'total time taken', (d3 - d2) / 1000)
+    return JSON.stringify(savedRecords)
+  } catch(e) {
+    nlapiLogExecution('DEBUG', 'Exception during Item Import', e)
+    return JSON.stringify(e)
   }
-  var d2 = new Date()
-  nlapiLogExecution('DEBUG', 'time for xml to string', (d2 - d1) / 1000)
-  var rId = triggerProcessRecord(itemJsonStr)
-  return rId + ''
   // return itemJsonStr
 }
 

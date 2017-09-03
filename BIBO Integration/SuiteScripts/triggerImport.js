@@ -28,8 +28,9 @@ var http = require('https')
 // }
 // var req = http.request(options, callback)
 
-
 var request = require('request')
+var X2JS = require('./xml2json')
+// var parser = require('xml2json')
 
 var options = {
   uri: 'https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl?script=599&deploy=1',
@@ -41,8 +42,6 @@ var options = {
   }
 }
 
-
-
 var h = {
   headers: { 'Authorization': 'NLAuth nlauth_account=647267_SB2, nlauth_email=smaddela@ydesigngroup.com, nlauth_signature=n$Login123, nlauth_role=3' },
   json: {
@@ -50,7 +49,7 @@ var h = {
     args: 'enter arguments to pass' // ['customer']
   }
 }
-var path = 'D:\\Projects\\Infologitech\\Storeroom\\itemfiles'
+var path = 'D:\\Projects\\Infologitech\\Infologitech_BIBO\\ItemImport\\StoreRoom\\TestImportFiles' // 'D:\\Projects\\Infologitech\\Storeroom\\itemfiles'
 fs.readdir(path, function (err, items) {
   // console.log(items)
   if (err) {
@@ -58,24 +57,34 @@ fs.readdir(path, function (err, items) {
   }
   var d1 = new Date()
   console.log('Start time: ' + d1)
-  var count = 1
-  var n = 100
-  for (var i = 0; i < n; i++) {
-    console.log(items[0])
-    fs.readFile(path + '\\' + items[0], 'utf8', function (errr, data) {
+  // var count = 1
+  var n = 2
+  console.log('Files count: ' + items.length)
+  for (var i = 0; i < items.length; i++) {
+    console.log(items[i])
+    fs.readFile(path + '\\' + items[i], 'utf8', function (errr, data) {
       if (errr) {
         return console.log(errr)
       }
-      console.log(typeof data)
+      // console.log(typeof data)
       options.json = data
-      request(options, function cb(error, response, body) {
-        console.log(count++)
-        console.log(JSON.stringify(body))
-        if (count === n) {
+      // var x2js = new X2JS()
+      // var xmlAsJson = x2js.xml_str2json(data)
+      // console.log(xmlAsJson)
+      // return xmlAsJson
+      request(options, function (error, response, body) {
+        if (error) {
+          console.log(error)
+          return
+        }
+        // console.log(count++)
+        console.log(body)
+        // console.log('i and items.length-1: ' + i + ' and ' + (items.length - 1))
+        // if (i === items.length) {
           var d2 = new Date()
           console.log('End time: ' + d2)
           console.log('Elapsed Time: ' + ((d2 - d1) / 1000))
-        }
+        // }
         // console.log(error)
         // console.log(response)
         // console.log(body)
