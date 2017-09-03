@@ -44,10 +44,9 @@ NSObjUPdate.prototype.updateField = function (itemJson, field) {
 }
 
 NSObjUPdate.prototype.save = function () {
-  this.getNLRecord().setFieldValue('custitem_cseg_ilt_busns_unit', 1)
-  this.getNLRecord().setFieldValue('itemid', new Date().getTime() + '')
+  this.getNLRecord().setFieldValue('isdropshipitem', 'F')
+  // this.getNLRecord().setFieldValue('itemid', new Date().getTime() + '')
   var rId = nlapiSubmitRecord(this.getNLRecord())
-  nlapiLogExecution('DEBUG', 'Item saved', 'Id: ' + rId)
   return rId
 }
 
@@ -62,7 +61,7 @@ function setValue(nlObj, f, v, subList, lineNum) {
   } else {
     // nlapiLogExecution('DEBUG', 'f, v', f + ' : ' + v)
     if (f === 'parent') {
-      v = 104687
+      // v = 104687
     }
     nlObj.setFieldValue(f, v)
   }
