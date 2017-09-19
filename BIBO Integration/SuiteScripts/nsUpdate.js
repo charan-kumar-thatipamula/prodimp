@@ -65,23 +65,28 @@ NSUpdate.prototype.processRecord = function () {
   var savedIds = {}
   for (var i = 0; i < record.length; i++) {
     var remainingUsage = context.getRemainingUsage()
-    nlapiLogExecution('DEBUG', 'Remaining usage', 'Remaining usage points: ' + remainingUsage)
+    // nlapiLogExecution('DEBUG', 'Remaining usage', 'Remaining usage points: ' + remainingUsage)
     if (remainingUsage < 30) {
       break
     }
     var cRecord = record[i]
     // nlapiLogExecution('DEBUG', 'cRecord', JSON.stringify(cRecord))
     try {
-      var nlObj = getNLObj(cRecord)
+      // var nlObj = getNLObj(cRecord)
       var nsObjUpdate = new NSObjUPdate()
+      var nlObj = nsObjUpdate.getNLObj(cRecord)
       nsObjUpdate.setNLRecord(nlObj)
       var cId = updateNSObject(nsObjUpdate, cRecord)
       // savedIds.push(cId)
-      nlapiLogExecution('DEBUG', 'SKU and Id', 'SKU: ' + cRecord.itemId.__text + ', Saved Id: ' + cId)    
-      savedIds[cRecord.itemId.__text] = cId
-    } catch(e) {
-      nlapiLogExecution('DEBUG', 'Exception saving the item: ' + cRecord.itemId.__text, e)
-      savedIds[cRecord.itemId.__text] = e
+      nlapiLogExecution('DEBUG', 'SKU and Id', 'SKU: ' + cRecord.itemId.__text + ', Saved Id: ' + JSON.stringify(cId))
+      // savedIds[cRecord.itemId.__text] = cId
+      // savedIds[cRecord.itemId] = cId
+      savedIds[cId.itemid] = cId.rId
+    } catch (e) {
+      // nlapiLogExecution('DEBUG', 'Exception saving the item: ' + cRecord.itemId.__text, e)
+      // savedIds[cRecord.itemId.__text] = e
+      savedIds[cRecord.itemId.__text] = e.details
+      // savedIds[cRecord.itemid]
     }
   }
   // var nlObj = getNLObj(record)
@@ -91,13 +96,16 @@ NSUpdate.prototype.processRecord = function () {
   return savedIds
 }
 
-function getNLObj(record) {
-  var itemId = record.itemId.__text
-  // var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('nameinternal', null, 'is', itemId), null)
-  var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('custitem_external_id', null, 'is', itemId), null)
-  if (!s || !s.length) {
-    return nlapiCreateRecord('inventoryitem')
-  } else {
-    return nlapiLoadRecord('inventoryitem', s[0].getId())
-  }
-}
+// function getNLObj(record) {
+//   var itemId = record.itemId.__text || record.itemId
+//   // var itemId = record.itemId
+//   // var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('nameinternal', null, 'is', itemId), null)
+//   var s = nlapiSearchRecord('inventoryitem', null, new nlobjSearchFilter('itemid', null, 'is', itemId), null)
+//   if (!s || !s.length) {
+//     nlapiLogExecution('DEBUG', 'New item creation', itemId)
+//     return nlapiCreateRecord('inventoryitem')
+//   } else {
+//     nlapiLogExecution('DEBUG', 'Item update', itemId + ':' + s[0].getId())
+//     return nlapiLoadRecord('inventoryitem', s[0].getId())
+//   }
+// }
