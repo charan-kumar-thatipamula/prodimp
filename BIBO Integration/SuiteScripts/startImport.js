@@ -1,20 +1,20 @@
+/*
+ * Created on Thu Sep 21 2017
+ *
+ * Entry file for import
+ *
+ * Author: Shashank Maddela
+ */
+
 var triggerImport = require('./triggerImport')
 var fs = require('fs')
 var prop = require('./properties')
 var options = prop.options
-// {
-//   uri: 'https://rest.sandbox.netsuite.com/app/site/hosting/restlet.nl?script=599&deploy=1',
-//   method: 'POST',
-//   headers: {
-//     'Authorization': 'NLAuth nlauth_account=647267_SB2, nlauth_email=smaddela@ydesigngroup.com, nlauth_signature=n$Login123, nlauth_role=3'
-//   }
-// }
 
-var sourcePath = prop.sourcePath // 'D:\\Projects\\Infologitech\\Infologitech_BIBO\\ItemImport\\StoreRoom\\TestImportFiles' // 'D:\\Projects\\Infologitech\\Storeroom\\itemfiles'
-var tempPath = prop.tempPath // 'D:\\Projects\\Infologitech\\Infologitech_BIBO\\ItemImport\\StoreRoom\\Temporary'
-var processedPath = prop.processedPath // 'D:\\Projects\\Infologitech\\Infologitech_BIBO\\ItemImport\\StoreRoom\\Processed'
-var childFilesFolder = prop.childFilesFolder
-var numFilesToMove = prop.numFilesToMove // 5
+var sourcePath = prop.sourcePath
+var tempPath = prop.tempPath
+var processedPath = prop.processedPath
+var numFilesToMove = prop.numFilesToMove
 var resultsFileName = prop.resultsFileName
 var fResultGlobal = {
   count: 0
@@ -41,46 +41,38 @@ function moveFiles(sourcePath, tempPath, cb) {
         })
       }
     }
-    // fs.createReadStream(sourcePath + '\\' + ).pipe(fs.createWriteStream('newLog.log'))
   })
 }
 var callback = function (done) {
   if (done) {
     moveFiles(tempPath, processedPath, function () {
-      // moveFiles(sourcePath, tempPath, function () {
-        // triggerImport.run(tempPath, options, callback, fResultGlobal)
-      // })
+      moveFiles(sourcePath, tempPath, function () {
+        triggerImport.run(tempPath, options, callback, fResultGlobal)
+      })
     })
   } else {
     moveFiles(sourcePath, tempPath, function () {
       triggerImport.run(tempPath, options, callback, fResultGlobal)
     })
-    // triggerImport.run(tempPath, options, callback)
   }
   console.log('processing done')
-  console.log(triggerImport.finalRes)
-  console.log(new Date())
-  // if (!fs.existsSync(tempPath)) {
-  //   fs.mkdirSync(tempPath)
-  // }
+  // console.log(triggerImport.finalRes)
+  var d = new Date()
 
-  // updateResultFile(triggerImport.finalRes)
   if (fResultGlobal.count !== 0) {
-    // updateResultFile(fResultGlobal)
-    // console.log(fResultGlobal)
     console.log(fResultGlobal.count)
   }
-  // triggerImport.finalRes = {}
+  console.log('End Time: ' + d)
+  console.log('\n************End*************\n')
 }
-// callback(false)
 
 function start() {
   console.log(new Date())
   try {
-    fs.unlinkSync(processedPath + '\\' + resultsFileName)
-    console.log('Deleted results files')
+    // fs.unlinkSync(processedPath + '\\' + resultsFileName)
+    // console.log('Deleted results files')
   } catch (e) {
-    console.log(e)
+    // console.log(e)
   }
   try {
     var files = fs.readdirSync(tempPath)
@@ -92,18 +84,9 @@ function start() {
     console.log(e)
   }
 
-  // files = fs.readdirSync(sourcePath) 
-  // for (var i in files) {
-  //   // fs.unlinkSync(tempPath + '\\' + files[i])
-  //   var readStream = fs.createReadStream(childFilesFolder + '\\' + files[i])
-  //   readStream.pipe(fs.createWriteStream(sourcePath + '\\' + files[i]))
-  // }
   callback(false)
 }
 start()
-// moveFiles(sourcePath, tempPath)
-// triggerImport.run(tempPath, options, callback)
-// console.log('From startImport: ' + rValue)
 
 function updateResultFile(resJson) {
   resJson = JSON.stringify(resJson)
